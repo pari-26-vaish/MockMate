@@ -1,0 +1,161 @@
+/* ===== Background ===== */
+.bg {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Keep the slow pan for larger screens only; on phones it's easy to miss
+   and just costs battery/repaint work while scrolling. */
+@media (min-width: 640px) {
+  .bg {
+    animation: bgPan 20s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes bgPan {
+  0% {
+    background-position: center;
+  }
+  100% {
+    background-position: 52% 48%;
+  }
+}
+
+/* ===== Card entrance ===== */
+.card {
+  animation: cardIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Heading + subtitle entrance, staggered slightly after the card */
+.heading {
+  animation: fadeUp 0.6s ease-out 0.1s both;
+}
+
+.subtitle {
+  animation: fadeUp 0.6s ease-out 0.22s both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Form fields swap (Login <-> Register) ===== */
+.form-fade {
+  animation: formSwap 0.35s ease-out both;
+}
+
+@keyframes formSwap {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ===== Tabs / mode toggle underline ===== */
+.toggle {
+  position: relative;
+}
+
+.toggle button {
+  position: relative;
+  z-index: 1;
+  transition: color 0.25s ease;
+}
+
+/* ===== Input focus animation ===== */
+.input {
+  transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+
+.input:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35), 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== CTA button glow ===== */
+.btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background-color 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.55), 0 8px 24px rgba(59, 130, 246, 0.25);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Subtle sheen sweep on hover */
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::after {
+  left: 130%;
+}
+
+/* ===== Password strength bars ===== */
+.strength-bar {
+  transition: background-color 0.3s ease;
+}
+
+/* Microsoft Edge adds its own built-in "reveal password" eye icon inside
+   password fields. Since we already render a custom Eye/EyeOff button,
+   this hides Edge's native one so they don't stack on top of each other. */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* ===== Reduced motion support ===== */
+@media (prefers-reduced-motion: reduce) {
+  .bg,
+  .card,
+  .heading,
+  .subtitle,
+  .form-fade,
+  .input,
+  .btn,
+  .btn::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
