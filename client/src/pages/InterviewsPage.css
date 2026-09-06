@@ -1,0 +1,188 @@
+/* ===== Section entrance ===== */
+.page-fade {
+  animation: pageFadeUp 0.5s ease-out both;
+}
+.page-fade-1 {
+  animation-delay: 0.08s;
+}
+.page-fade-2 {
+  animation-delay: 0.16s;
+}
+.page-fade-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes pageFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Stat cards ===== */
+.stat-card {
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 211, 238, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Hero CTA ===== */
+.hero-card {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(8, 47, 73, 0.5)
+  );
+  transition: border-color 0.3s ease;
+}
+
+.hero-card:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+}
+
+.hero-glow {
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 60%;
+  height: 180%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 65%);
+  animation: heroDrift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes heroDrift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-6%, 4%) scale(1.08);
+  }
+}
+
+.hero-icon {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.hero-btn {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.hero-btn:hover {
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ===== Filter tabs ===== */
+.filter-tabs {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.filter-tab-active {
+  background: rgba(34, 211, 238, 0.15);
+  color: #67e8f9;
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.3) inset;
+}
+
+/* ===== Interview cards (glass + gradient border + cyan glow on hover) ===== */
+.interview-card {
+  position: relative;
+  backdrop-filter: blur(6px);
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.3s ease;
+}
+
+.interview-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35), 0 0 18px rgba(34, 211, 238, 0.12);
+}
+
+/* Gradient border accent line along the top of each card */
+.interview-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(90deg, #22d3ee, #3b82f6, transparent);
+  opacity: 0.6;
+}
+
+.view-result-btn {
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: #67e8f9;
+  transition: background-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.view-result-btn:hover {
+  background: rgba(34, 211, 238, 0.16);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.3);
+}
+
+/* ===== Status badges ===== */
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.status-completed {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-progress {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-pending {
+  background: rgba(148, 163, 184, 0.1);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+/* ===== Empty state ===== */
+.empty-card {
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.empty-card:hover {
+  border-color: rgba(148, 163, 184, 0.4);
+}
+
+.empty-icon {
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .page-fade,
+  .hero-glow,
+  .hero-card,
+  .hero-btn,
+  .stat-card,
+  .interview-card,
+  .empty-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}

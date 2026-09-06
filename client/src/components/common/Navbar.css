@@ -1,0 +1,184 @@
+/* ===== Glass shell ===== */
+.navbar-glass {
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Faint AI "circuit glow" line under the navbar for atmosphere */
+.navbar-glass::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 211, 238, 0.5),
+    transparent
+  );
+  opacity: 0.5;
+  animation: glowSlide 6s ease-in-out infinite;
+}
+
+@keyframes glowSlide {
+  0%,
+  100% {
+    transform: translateX(-30%);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateX(30%);
+    opacity: 0.6;
+  }
+}
+
+/* ===== Logo ===== */
+.logo-group {
+  cursor: pointer;
+}
+
+.logo-orb {
+  background: radial-gradient(circle at 30% 30%, rgba(34, 211, 238, 0.35), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.logo-group:hover .logo-orb {
+  transform: rotate(-8deg) scale(1.08);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.45);
+  border-color: rgba(34, 211, 238, 0.7);
+}
+
+/* ===== Nav links with animated underline ===== */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #22d3ee, #3b82f6);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link-active::after {
+  transform: scaleX(1);
+}
+
+/* ===== Credit pill ===== */
+.credit-pill {
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+
+.credit-pill:hover {
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.4);
+  border-color: rgba(34, 211, 238, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ===== Profile trigger + avatar ===== */
+.profile-trigger {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.profile-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.avatar {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-trigger:hover .avatar {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.25);
+}
+
+/* ===== Dropdown ===== */
+.dropdown-menu {
+  background: rgba(15, 23, 42, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  animation: dropdownIn 0.18s ease-out both;
+  transform-origin: top right;
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dropdown-item {
+  transition: background-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  padding-left: 1.15rem;
+}
+
+.dropdown-item-danger:hover {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+/* ===== Mobile menu ===== */
+.mobile-menu {
+  animation: mobileMenuIn 0.2s ease-out both;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+@keyframes mobileMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-glass::after,
+  .logo-orb,
+  .nav-link::after,
+  .credit-pill,
+  .avatar,
+  .dropdown-menu,
+  .mobile-menu {
+    animation: none !important;
+    transition: none !important;
+  }
+}

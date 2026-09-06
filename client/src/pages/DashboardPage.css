@@ -1,0 +1,119 @@
+/* ===== Section entrance ===== */
+.dash-fade-in {
+  animation: dashFadeUp 0.5s ease-out both;
+}
+
+.dash-fade-delay-1 {
+  animation-delay: 0.08s;
+}
+.dash-fade-delay-2 {
+  animation-delay: 0.16s;
+}
+.dash-fade-delay-3 {
+  animation-delay: 0.24s;
+}
+
+@keyframes dashFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Hero CTA card ===== */
+.hero-card {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(8, 47, 73, 0.55)
+  );
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-card:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+/* Soft radial glow drifting behind the hero content */
+.hero-glow {
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 60%;
+  height: 180%;
+  background: radial-gradient(
+    circle,
+    rgba(34, 211, 238, 0.18),
+    transparent 65%
+  );
+  animation: heroDrift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes heroDrift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-6%, 4%) scale(1.08);
+  }
+}
+
+.hero-icon {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+/* Extra glow specifically on the CTA button inside the hero */
+.hero-btn {
+  box-shadow: 0 0 0 rgba(34, 211, 238, 0);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.hero-btn:hover {
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+  transform: translateY(-1px);
+}
+
+/* ===== Stat cards ===== */
+.stat-card {
+  transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 211, 238, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Empty state ===== */
+.empty-card {
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.empty-card:hover {
+  border-color: rgba(148, 163, 184, 0.4);
+  background-color: rgba(15, 23, 42, 0.55);
+}
+
+.empty-icon {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .dash-fade-in,
+  .hero-glow,
+  .hero-card,
+  .hero-btn,
+  .stat-card,
+  .empty-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}
