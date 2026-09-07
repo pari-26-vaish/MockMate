@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
+import resumeRoutes from "./routes/resumeRoutes.js";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
@@ -14,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/resume", resumeRoutes);
 app.use(errorHandler);
 
 connectDB();
