@@ -1,4 +1,4 @@
-import generateInterviewQuestions from "../services/aiService.js";
+import generateQuestionsFromAI from "../services/aiEngine.js";
 
 export const generateQuestions = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ export const generateQuestions = async (req, res) => {
       });
     }
 
-    const questions = await generateInterviewQuestions({
+    const questions = await generateQuestionsFromAI({
       role,
       experience,
       techStack,
