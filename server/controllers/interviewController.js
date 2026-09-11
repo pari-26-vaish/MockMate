@@ -52,4 +52,57 @@ const createInterview = async (req, res) => {
   }
 };
 
-export default createInterview;
+const getUserHistory = async (req, res) => {
+  try {
+    const interviews = await Interview.find({
+      userId: req.userId,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      message: "Interview history fetched successfully",
+      interviews,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch interview history",
+      error: error.message,
+    });
+  }
+};
+
+const getInterviewById = async (req, res) => {
+  try {
+    const interview = await Interview.findOne({
+      _id: req.params.id,
+      userId: req.userId,
+    });
+
+    if (!interview) {
+      return res.status(404).json({
+        message: "Interview not found",
+      });
+    }
+
+    const questions = await Question.find({
+      interviewId: interview._id,
+    });
+
+    res.status(200).json({
+      message: "Interview details fetched successfully",
+      interview,
+      questions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch interview details",
+      error: error.message,
+    });
+  }
+};
+
+
+export {
+  createInterview,
+  getUserHistory,
+  getInterviewById,
+};

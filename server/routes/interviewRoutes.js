@@ -1,5 +1,9 @@
 import express from "express";
-import createInterview from "../controllers/interviewController.js";
+import {
+  createInterview,
+  getUserHistory,
+  getInterviewById,
+} from "../controllers/interviewController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import creditMiddleware from "../middleware/creditMiddleware.js";
 
@@ -10,6 +14,18 @@ router.post(
   authMiddleware,
   creditMiddleware,
   createInterview
+);
+
+router.get(
+  "/history",
+  authMiddleware,
+  getUserHistory
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  getInterviewById
 );
 
 export default router;
