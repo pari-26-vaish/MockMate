@@ -3,6 +3,7 @@ import Navbar from "../components/common/Navbar";
 import Button from "../components/common/Button";
 import { Mic, BarChart3, Trophy, Bot, Calendar, Layers, User2 } from "lucide-react";
 import "./InterviewsPage.css";
+import {useNavigate} from "react-router-dom";
 
 // Shape each interview will eventually have once wired to the backend:
 // { id, role, techStack, experienceLevel, score, date, status }
@@ -20,9 +21,12 @@ const STATUS_STYLES = {
 const InterviewsPage = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
+  const navigate = useNavigate();
+
   const handleStartInterview = () => {
     // Launchpad only — this hooks into Interview Setup later.
     console.log("Start New Interview clicked");
+    navigate("/create-interview");
   };
 
   const filteredInterviews = MOCK_INTERVIEWS.filter((interview) => {
