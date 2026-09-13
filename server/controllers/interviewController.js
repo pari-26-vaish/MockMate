@@ -63,13 +63,14 @@ const getUserHistory = async (req, res) => {
       interviews,
     });
   } catch (error) {
+    console.error("GET USER HISTORY ERROR:", error);
+
     res.status(500).json({
       message: "Failed to fetch interview history",
       error: error.message,
     });
   }
 };
-
 const getInterviewById = async (req, res) => {
   try {
     const interview = await Interview.findOne({

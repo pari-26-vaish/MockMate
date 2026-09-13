@@ -17,7 +17,7 @@ router.post(
 );
 
 router.get(
-  "/history",
+  "/user-history",
   authMiddleware,
   getUserHistory
 );
