@@ -7,6 +7,7 @@ import Navbar from "../components/common/Navbar";
 import Button from "../components/common/Button";
 import { Mic, BarChart3, Zap, Sparkles, ArrowRight, Clock } from "lucide-react";
 import "./DashboardPage.css";
+import useTextToSpeech from "../hooks/useTextToSpeech.js";
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -17,7 +18,7 @@ const getGreeting = () => {
 
 const DashboardPage = () => {
   const navigate = useNavigate();
-
+  const { speak, stop, isSpeaking } = useTextToSpeech();
   const { user } = useAuth();
   const firstName = user?.name?.split(" ")[0] || "there";
 
@@ -174,6 +175,26 @@ const DashboardPage = () => {
             </div>
           )}
         </section>
+
+        <div className="mt-6 flex gap-3 items-center">
+          <button
+            onClick={() =>
+              speak(
+                "Welcome to MockMate. Let's begin your AI interview."
+              )
+            }
+          >
+            🔊 Test Voice
+          </button>
+
+          <button onClick={stop}>
+            ⏹ Stop
+          </button>
+
+          <span>
+            {isSpeaking ? "Speaking..." : "Ready"}
+          </span>
+        </div>
       </main>
     </div>
   );
