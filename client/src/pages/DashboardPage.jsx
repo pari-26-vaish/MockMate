@@ -8,6 +8,9 @@ import Button from "../components/common/Button";
 import { Mic, BarChart3, Zap, Sparkles, ArrowRight, Clock } from "lucide-react";
 import "./DashboardPage.css";
 import useTextToSpeech from "../hooks/useTextToSpeech.js";
+import useSpeechToText from "../hooks/useSpeechToText.js";
+
+
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -18,6 +21,12 @@ const getGreeting = () => {
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const {
+    transcript,
+    isListening,
+    startListening,
+    stopListening,
+  } = useSpeechToText();
   const { speak, stop, isSpeaking } = useTextToSpeech();
   const { user } = useAuth();
   const firstName = user?.name?.split(" ")[0] || "there";
@@ -195,6 +204,27 @@ const DashboardPage = () => {
             {isSpeaking ? "Speaking..." : "Ready"}
           </span>
         </div>
+
+        <div className="mt-6 p-5 rounded-xl border border-slate-800 bg-slate-900">
+          <p className="text-slate-300 mb-3">
+            {transcript || "Your speech will appear here..."}
+          </p>
+
+          <div className="flex gap-3">
+            <button onClick={startListening}>
+              🎤 Start Listening
+            </button>
+
+            <button onClick={stopListening}>
+              ⏹ Stop Listening
+            </button>
+          </div>
+
+          <p className="mt-3 text-sm">
+            {isListening ? "🔴 Listening..." : "⚪ Not Listening"}
+          </p>
+        </div>
+
       </main>
     </div>
   );
