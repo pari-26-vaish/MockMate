@@ -5,6 +5,7 @@ import InterviewsPage from "./pages/InterviewsPage";
 import ProgressPage from "./pages/ProgressPage";
 import CreateInterviewPage from "./pages/CreateInterviewPage";
 import AuthPage from "./pages/AuthPage";
+import InterviewRoomPage from "./pages/InterviewRoomPage";
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
 
         <Route path="/progress" element={<ProgressPage />} />
 
-        <Route path="/create-interview" element={<CreateInterviewPage/>}/>
+        <Route path="/create-interview" element={<CreateInterviewPage />} />
 
-        <Route path="/login" element={<AuthPage/>} />
+        <Route path="/login" element={<AuthPage />} />
+
+        <Route path="/interview-room" element={<InterviewRoomPage />}/>
       </Routes>
     </BrowserRouter>
   );
