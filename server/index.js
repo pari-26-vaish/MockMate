@@ -8,6 +8,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import interviewRoutes from "./routes/interviewRoutes.js";
+import evaluationRoutes from "./routes/evaluationRoutes.js";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/interview", interviewRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/evaluation", evaluationRoutes);
 app.use(errorHandler);
 
 connectDB();

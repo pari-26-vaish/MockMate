@@ -47,4 +47,41 @@ Allowed values:
 `;
 };
 
+export const evaluationPrompt = ({ question, userResponse }) => `
+You are an expert technical interviewer evaluating a candidate's interview answer.
+
+Evaluate the candidate's response based on:
+- Technical correctness
+- Relevance to the question
+- Clarity
+- Depth of understanding
+- Practical knowledge
+
+Interview Question:
+${question}
+
+Candidate's Answer:
+${userResponse}
+
+Return ONLY valid JSON.
+
+The JSON must follow exactly this structure:
+
+{
+  "score": 1,
+  "keyStrengths": [],
+  "areasOfImprovement": [],
+  "idealAnswer": ""
+}
+
+Rules:
+- score must be an integer from 1 to 10.
+- keyStrengths must be an array of concise points.
+- areasOfImprovement must be an array of concise points.
+- idealAnswer must provide a clear and technically correct answer.
+- Do not include markdown.
+- Do not include code fences.
+- Do not add any text outside the JSON.
+`;
+
 export default buildInterviewPrompt;
