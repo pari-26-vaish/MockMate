@@ -6,7 +6,7 @@ import {
 } from "../controllers/interviewController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import creditMiddleware from "../middleware/creditMiddleware.js";
-
+import {evaluateAnswer} from "../controllers/evaluationController.js";
 const router = express.Router();
 
 router.post(
@@ -27,5 +27,7 @@ router.get(
   authMiddleware,
   getInterviewById
 );
+
+router.post("/evaluate-answer", evaluateAnswer);
 
 export default router;
