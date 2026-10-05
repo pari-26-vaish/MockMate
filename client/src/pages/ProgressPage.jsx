@@ -1,4 +1,6 @@
 import Navbar from "../components/common/Navbar";
+import ScoreBreakdown from "../components/report/ScoreBreakdown";
+import AnswerComparison from "../components/report/AnswerComparison";
 import {
   TrendingUp,
   BarChart3,
@@ -42,6 +44,8 @@ const STREAK_DONE = WEEK_DAYS.map(() => false); // swap in real streak data late
 
 const ProgressPage = () => {
   return (
+
+
     <div className="min-h-screen bg-slate-950 text-white">
       <Navbar />
 
