@@ -1,6 +1,7 @@
 import Navbar from "../components/common/Navbar";
 import ScoreBreakdown from "../components/report/ScoreBreakdown";
 import AnswerComparison from "../components/report/AnswerComparison";
+import PerformanceChart from "../components/dashboard/PerformanceChart";
 import {
   TrendingUp,
   BarChart3,
@@ -48,7 +49,7 @@ const ProgressPage = () => {
 
     <div className="min-h-screen bg-slate-950 text-white">
       <Navbar />
-
+      <PerformanceChart />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         {/* Header */}
         <section className="page-fade mb-8 sm:mb-10">

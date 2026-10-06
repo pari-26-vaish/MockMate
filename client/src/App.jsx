@@ -6,6 +6,7 @@ import ProgressPage from "./pages/ProgressPage";
 import CreateInterviewPage from "./pages/CreateInterviewPage";
 import AuthPage from "./pages/AuthPage";
 import InterviewRoomPage from "./pages/InterviewRoomPage";
+import FeedbackReportPage from "./pages/FeedbackReportPage";
 
 function App() {
   return (
@@ -23,7 +24,12 @@ function App() {
 
         <Route path="/login" element={<AuthPage />} />
 
-        <Route path="/interview-room" element={<InterviewRoomPage />}/>
+        <Route path="/interview-room" element={<InterviewRoomPage />} />
+
+        <Route
+          path="/feedback-report"
+          element={<FeedbackReportPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
