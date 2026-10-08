@@ -9,7 +9,7 @@ import resumeRoutes from "./routes/resumeRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import interviewRoutes from "./routes/interviewRoutes.js";
 import evaluationRoutes from "./routes/evaluationRoutes.js";
-
+import paymentRoutes from "./routes/paymentRoutes.js";
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 dotenv.config();
@@ -22,6 +22,7 @@ app.use("/api/interview", interviewRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/evaluation", evaluationRoutes);
+app.use("/api/payment", paymentRoutes);
 app.use(errorHandler);
 
 connectDB();

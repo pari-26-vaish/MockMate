@@ -9,6 +9,7 @@ import { Mic, BarChart3, Zap, Sparkles, ArrowRight, Clock } from "lucide-react";
 import "./DashboardPage.css";
 import useTextToSpeech from "../hooks/useTextToSpeech.js";
 import useSpeechToText from "../hooks/useSpeechToText.js";
+import BuyCredits from "../components/payment/BuyCredits";
 
 
 
@@ -224,7 +225,7 @@ const DashboardPage = () => {
             {isListening ? "🔴 Listening..." : "⚪ Not Listening"}
           </p>
         </div>
-
+        <BuyCredits/>
       </main>
     </div>
   );
