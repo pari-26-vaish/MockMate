@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { BriefcaseBusiness, CalendarDays, ArrowRight, Sparkles } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  CalendarDays,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 
 const InterviewCard = ({ interview }) => {
   const navigate = useNavigate();
@@ -16,7 +21,13 @@ const InterviewCard = ({ interview }) => {
   const score = interview.score ?? 0;
 
   const scoreTier =
-    score >= 80 ? "excellent" : score >= 60 ? "good" : score > 0 ? "low" : "none";
+    score >= 80
+      ? "excellent"
+      : score >= 60
+      ? "good"
+      : score > 0
+      ? "low"
+      : "none";
 
   const scoreLabel =
     scoreTier === "excellent"
@@ -32,8 +43,13 @@ const InterviewCard = ({ interview }) => {
   const circumference = 2 * Math.PI * radius;
   const progress = circumference - (score / 100) * circumference;
 
+  // Handle card action
   const handleAction = () => {
-    navigate(`/interview/${interview._id}`);
+    if (interview.status === "completed") {
+      navigate(`/report/${interview._id}`);
+    } else {
+      navigate(`/interview/${interview._id}`);
+    }
   };
 
   return (
@@ -52,7 +68,9 @@ const InterviewCard = ({ interview }) => {
               <Sparkles size={12} />
               AI INTERVIEW
             </p>
+
             <h3>{interview.role}</h3>
+
             <p className="interview-tech">{interview.techStack}</p>
           </div>
         </div>
@@ -68,6 +86,7 @@ const InterviewCard = ({ interview }) => {
               strokeWidth="5"
               fill="none"
             />
+
             <circle
               className={`score-ring-fill tier-${scoreTier}`}
               cx="32"
@@ -81,6 +100,7 @@ const InterviewCard = ({ interview }) => {
               transform="rotate(-90 32 32)"
             />
           </svg>
+
           <div className="score-ring-text">
             <span className="score-value">{score}</span>
             <span className="score-max">/100</span>
@@ -90,7 +110,10 @@ const InterviewCard = ({ interview }) => {
 
       {/* Tier badge + Date */}
       <div className="interview-meta">
-        <span className={`score-badge tier-${scoreTier}`}>{scoreLabel}</span>
+        <span className={`score-badge tier-${scoreTier}`}>
+          {scoreLabel}
+        </span>
+
         <div className="interview-date">
           <CalendarDays size={14} />
           <span>{formattedDate}</span>
@@ -98,8 +121,16 @@ const InterviewCard = ({ interview }) => {
       </div>
 
       {/* Action */}
-      <button className="interview-action-btn" onClick={handleAction}>
-        <span>{score > 0 ? "View Interview" : "Start Interview"}</span>
+      <button
+        className="interview-action-btn"
+        onClick={handleAction}
+      >
+        <span>
+          {interview.status === "completed"
+            ? "View Report"
+            : "Start Interview"}
+        </span>
+
         <ArrowRight size={17} className="btn-arrow" />
       </button>
     </div>

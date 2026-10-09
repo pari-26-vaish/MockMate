@@ -1,4 +1,5 @@
 import Question from "../models/Question.js";
+import Interview from "../models/Interview.js";
 import { evaluateAnswerAI } from "../services/aiEngine.js";
 
 export const evaluateAnswer = async (req, res) => {
@@ -40,6 +41,16 @@ export const evaluateAnswer = async (req, res) => {
 
     await question.save();
 
+    const answeredQuestions = await Question.countDocuments({
+      interviewId: question.interviewId,
+      userAnswer: { $ne: "" },
+    });
+
+    if (answeredQuestions >= 5) {
+      await Interview.findByIdAndUpdate(question.interviewId, {
+        status: "completed",
+      });
+    }
     res.status(200).json({
       message: "Answer evaluated successfully",
       evaluation,

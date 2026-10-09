@@ -27,6 +27,11 @@ const interviewSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    status: {
+      type: String,
+      enum: ["draft", "completed"],
+      default: "draft",
+    },
   },
   {
     timestamps: true,
