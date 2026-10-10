@@ -1,41 +1,126 @@
+import { useEffect,useState } from "react";
 import Navbar from "../components/common/Navbar";
 import ScoreBreakdown from "../components/report/ScoreBreakdown";
 import AnswerComparison from "../components/report/AnswerComparison";
 import PerformanceChart from "../components/dashboard/PerformanceChart";
+import { useParams} from "react-router-dom";
+import api from "../services/api";
+
 
 const FeedbackReportPage = () => {
+  const { id } = useParams();
+
+const [interview, setInterview] = useState(null);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState("");
+
+useEffect(() => {
+  const fetchReport = async () => {
+    try {
+      const response = await api.get(`/interviews/${id}`);
+      setInterview(response.data);
+    } catch (err) {
+      console.error("Failed to fetch interview report:", err);
+      setError("Unable to load this interview report.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchReport();
+}, [id]);
+
+if (loading) {
+  return (
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center text-cyan-400">
+      Loading interview report...
+    </div>
+  );
+}
+
+if (error) {
+  return (
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center text-red-400">
+      {error}
+    </div>
+  );
+}
+
+if (!interview) {
+  return (
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center text-yellow-400">
+      Interview report not found.
+    </div>
+  );
+}
+
   // Temporary data for UI development.
   // We will replace this with real backend data later.
-  const report = {
-    overallScore: 85,
+const questions = interview.questions || [];
 
-    strengths: [
-      "Strong understanding of the MERN stack",
-      "Good knowledge of React fundamentals",
-      "Clear explanation of technical concepts",
-      "Good problem-solving approach",
-    ],
+const scores = questions
+  .map((question) => Number(question.score) || 0)
+  .filter((score) => score > 0);
 
-    weaknesses: [
-      "Some answers could be more detailed",
-      "System design explanations need more depth",
-      "Improve confidence when explaining complex concepts",
-    ],
+const overallScore = scores.length
+  ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
+  : 0;
 
-    takeaways: [
-      "Focus on explaining the WHY behind your technical decisions.",
-      "Practice system design and scalability questions.",
-      "Keep answers structured and concise.",
-    ],
+const firstQuestion = questions[0];
 
-    question: "What is the difference between state and props in React?",
+let firstFeedback = {};
 
-    userAnswer:
-      "Props are used to pass data from parent to child components. State is used to manage data inside a component.",
+try {
+  firstFeedback = firstQuestion?.aiFeedback
+    ? JSON.parse(firstQuestion.aiFeedback)
+    : {};
+} catch {
+  firstFeedback = {};
+}
 
-    idealAnswer:
-      "Props are read-only data passed from a parent component to a child. State is mutable data managed inside the component. Props help communication between components, while state manages component behavior and UI updates.",
-  };
+const report = {
+  overallScore,
+
+  strengths: [
+    ...new Set(
+      questions.flatMap(
+        (question) => {
+          try {
+            return JSON.parse(question.aiFeedback || "{}").keyStrengths || [];
+          } catch {
+            return [];
+          }
+        }
+      )
+    ),
+  ],
+
+  weaknesses: [
+    ...new Set(
+      questions.flatMap(
+        (question) => {
+          try {
+            return JSON.parse(question.aiFeedback || "{}").areasOfImprovement || [];
+          } catch {
+            return [];
+          }
+        }
+      )
+    ),
+  ],
+
+  takeaways: [
+    "Review your answers and focus on the areas identified for improvement.",
+    "Practice explaining technical concepts clearly.",
+    "Keep practicing to improve your interview performance.",
+  ],
+
+  question: firstQuestion?.questionText || "No question available.",
+
+  userAnswer: firstQuestion?.userAnswer || "No answer submitted.",
+
+  idealAnswer: firstFeedback.idealAnswer || "No ideal answer available.",
+};
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
